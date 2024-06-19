@@ -1,23 +1,43 @@
 package com.springfamework.canteen.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "customers")
-public class Customers extends Person{
+@Setter @Getter @NoArgsConstructor
+public class Customers implements Serializable{
 
-    @Column(name = "address")
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "order_id")
-    private List<Order> orders;
+    @Column(nullable = false, unique = true)
+    private String phone;
 
-    @OneToMany(mappedBy = "payment_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy="id", fetch = FetchType.LAZY)
     private List<Payments> payments;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy="id", fetch = FetchType.LAZY)
+    private List<Order> orders;
 
 }

@@ -1,16 +1,20 @@
 package com.springfamework.canteen.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDate;
-
+@Setter @Getter @NoArgsConstructor
 @Embeddable
 public class OrderKey {
 
-    @Column(name = "product_id")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Products product;
 
-    @Column(name = "order_id")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     private Order order;
 
 }

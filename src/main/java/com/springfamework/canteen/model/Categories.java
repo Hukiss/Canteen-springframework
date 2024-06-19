@@ -1,26 +1,35 @@
 package com.springfamework.canteen.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
-@Data
 @Entity
 @Table(name = "categories")
-public class Categories {
+@Setter @Getter @NoArgsConstructor
+public class Categories implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "category_id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "product_id")
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
     private List<Products> products;
 
 }
