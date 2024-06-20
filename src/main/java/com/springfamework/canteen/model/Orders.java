@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
-public class Order implements Serializable {
+public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,10 +31,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "customer_id")
     private Customers customers;
 
-    @OneToMany(mappedBy = "product_id")
-    private List<Products> products;
-
-    @OneToMany(mappedBy = "order_id")
+    @OneToMany(mappedBy = "id")
     private List<OrderDetails> orderDetails;
 
 }

@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "products")
 @Setter @Getter @NoArgsConstructor
-public class Products{
+public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,6 +31,8 @@ public class Products{
     @Column
     private Double price;
 
+    @OneToMany(mappedBy = "id")
+    private List<OrderDetails> orderDetails;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne

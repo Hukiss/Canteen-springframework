@@ -26,15 +26,12 @@ public class OrderDetails implements Serializable {
     @Column(nullable = false)
     private Integer quantity;
 
-    @EmbeddedId
-    private OrderKey orderKey;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Products product;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Orders order;
 
 }

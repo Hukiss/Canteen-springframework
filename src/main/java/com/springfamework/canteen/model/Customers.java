@@ -38,6 +38,6 @@ public class Customers implements Serializable{
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy="id", fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private List<Orders> orders;
 
 }
